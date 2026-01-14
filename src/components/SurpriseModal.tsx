@@ -91,13 +91,13 @@ export default function SurpriseModal({ isOpen, onClose }: SurpriseModalProps) {
                 initial={{ scale: 0, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, type: 'spring', bounce: 0.4 }}
-                className="relative mx-auto mb-6"
+                className="relative mx-auto mb-6 w-40 h-40 md:w-56 md:h-56"
               >
                 {/* 愛心邊框裝飾 */}
                 <div className="absolute -inset-3 bg-gradient-to-br from-netflix-pink via-netflix-red to-netflix-pink rounded-full opacity-60 blur-md animate-pulse" />
                 
                 {/* 照片 */}
-                <div className="relative w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl">
+                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/30 shadow-2xl">
                   <img
                     src="/avatars/Mikhor.JPG"
                     alt="Mikhor"
@@ -130,11 +130,15 @@ export default function SurpriseModal({ isOpen, onClose }: SurpriseModalProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="font-noto text-lg md:text-xl text-text-secondary max-w-md mx-auto"
+                className="font-noto text-base md:text-lg text-text-secondary max-w-lg mx-auto leading-relaxed"
               >
-                期待這個週末一起認識大家！
-                <br />
-                他們都很期待見到妳 ✨
+                寶貝不好意思，我一直都沒有好好介紹我的朋友們給你認識，
+                <br className="hidden md:block" />
+                所以我做了一個專門為你設計的網頁，
+                <br className="hidden md:block" />
+                未來我會把一個一個想要介紹給你認識的朋友放上來，
+                <br className="hidden md:block" />
+                讓你好好認識他們 ❤️
               </motion.p>
 
               <motion.p
