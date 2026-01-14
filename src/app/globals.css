@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 主色調 - 深色電影院氛圍 */
+  --bg-primary: #141414;
+  --bg-secondary: #1a1a1a;
+  --bg-gradient-start: #0d0d0d;
+  --bg-gradient-end: #1f1f1f;
+  
+  /* 強調色 */
+  --accent-primary: #E50914;
+  --accent-secondary: #B81D24;
+  --accent-gold: #FFD700;
+  --accent-pink: #FF6B9D;
+  
+  /* 文字色彩 */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --text-muted: #6D6D6D;
+  
+  /* 標籤色彩 */
+  --tag-personality: #7B68EE;
+  --tag-skill: #00CED1;
+  --tag-funny: #FF6347;
+  --tag-default: #46D369;
+  
+  /* 特效色彩 */
+  --glow-red: rgba(229, 9, 20, 0.6);
+  --glow-gold: rgba(255, 215, 0, 0.4);
+  --shadow-card: rgba(0, 0, 0, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Noto Sans TC', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 隱藏滾動條但保留滾動功能 */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Netflix 風格文字選取 */
+::selection {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+/* Logo 發光效果 */
+.logo-glow {
+  text-shadow: 0 0 20px var(--glow-red);
+  transition: text-shadow 0.3s ease;
+}
+
+.logo-glow:hover {
+  text-shadow: 0 0 40px var(--glow-red), 0 0 60px var(--glow-red);
+}
+
+/* 卡片光暈效果 */
+.card-glow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glow:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px var(--glow-red);
+}
+
+/* 金色發光動畫 */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.gold-pulse {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+/* 彩虹漸層動畫 */
+@keyframes rainbowShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.rainbow-gradient {
+  background: linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #ff0080);
+  background-size: 300% 300%;
+  animation: rainbowShift 3s ease infinite;
+}
+
+/* 橫向滾動容器 */
+.scroll-container {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-item {
+  scroll-snap-align: start;
+}
