@@ -10,10 +10,14 @@ interface FriendModalProps {
   friend: Friend | null
   isOpen: boolean
   onClose: () => void
+  note?: string
+  onSaveNote?: (friendId: string, note: string) => void
 }
 
-export default function FriendModal({ friend, isOpen, onClose }: FriendModalProps) {
+export default function FriendModal({ friend, isOpen, onClose, note = '', onSaveNote }: FriendModalProps) {
   const [displayPercentage, setDisplayPercentage] = useState('0%')
+  const [localNote, setLocalNote] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
     if (isOpen && friend) {
@@ -22,9 +26,12 @@ export default function FriendModal({ friend, isOpen, onClose }: FriendModalProp
       const timer = setTimeout(() => {
         setDisplayPercentage(friend.matchPercentage)
       }, 300)
+      // 載入筆記
+      setLocalNote(note)
+      setIsEditing(false)
       return () => clearTimeout(timer)
     }
-  }, [isOpen, friend])
+  }, [isOpen, friend, note])
 
   // 處理 ESC 鍵關閉
   useEffect(() => {
@@ -46,6 +53,13 @@ export default function FriendModal({ friend, isOpen, onClose }: FriendModalProp
       document.body.style.overflow = ''
     }
   }, [isOpen])
+
+  const handleSaveNote = () => {
+    if (friend && onSaveNote) {
+      onSaveNote(friend.id, localNote)
+      setIsEditing(false)
+    }
+  }
 
   if (!friend) return null
 
@@ -180,16 +194,57 @@ export default function FriendModal({ friend, isOpen, onClose }: FriendModalProp
                     <p className="text-base md:text-lg text-white">{friend.tips}</p>
                   </motion.div>
 
-                  {/* 互動按鈕 (可選) */}
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                  {/* Mikhor 的筆記區 */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
-                    className="w-full mt-6 md:mt-8 py-3 md:py-4 bg-netflix-red hover:bg-netflix-red-dark text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+                    className="mt-4 md:mt-6 p-4 md:p-5 bg-netflix-pink/10 rounded-lg border border-netflix-pink/20"
                   >
-                    <span>▶</span>
-                    <span>開始互動</span>
-                  </motion.button>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm text-text-secondary">💕 Mikhor 的筆記</h4>
+                      {!isEditing && (
+                        <button
+                          onClick={() => setIsEditing(true)}
+                          className="text-xs text-netflix-pink hover:text-white transition-colors"
+                        >
+                          ✏️ 編輯
+                        </button>
+                      )}
+                    </div>
+                    
+                    {isEditing ? (
+                      <div className="space-y-3">
+                        <textarea
+                          value={localNote}
+                          onChange={(e) => setLocalNote(e.target.value)}
+                          placeholder="記錄你對這位朋友的第一印象..."
+                          className="w-full h-24 px-3 py-2 bg-black/30 border border-white/20 rounded-lg text-white placeholder-text-muted text-sm resize-none focus:outline-none focus:border-netflix-pink"
+                        />
+                        <div className="flex gap-2 justify-end">
+                          <button
+                            onClick={() => {
+                              setLocalNote(note)
+                              setIsEditing(false)
+                            }}
+                            className="px-3 py-1.5 text-sm text-text-secondary hover:text-white transition-colors"
+                          >
+                            取消
+                          </button>
+                          <button
+                            onClick={handleSaveNote}
+                            className="px-4 py-1.5 bg-netflix-pink text-white text-sm rounded-lg hover:bg-netflix-pink/80 transition-colors"
+                          >
+                            儲存 💾
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-base text-white/80 italic">
+                        {localNote || '還沒有寫筆記，點擊編輯來記錄第一印象！'}
+                      </p>
+                    )}
+                  </motion.div>
                 </div>
               </div>
             </div>

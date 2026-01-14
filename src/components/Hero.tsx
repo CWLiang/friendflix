@@ -1,14 +1,32 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // 視差效果：背景移動速度是滾動的 0.5 倍
+  const parallaxOffset = scrollY * 0.5
+
   return (
-    <section className="relative min-h-[50vh] min-h-[400px] flex flex-col justify-center pt-[120px] pb-[60px] px-5 md:px-[60px]">
-      {/* Banner 背景圖片 */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/avatars/2025雙十.jpg)' }}
+    <section className="relative min-h-[50vh] min-h-[400px] flex flex-col justify-center pt-[120px] pb-[60px] px-5 md:px-[60px] overflow-hidden">
+      {/* Banner 背景圖片 - 視差效果 */}
+      <motion.div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
+        style={{ 
+          backgroundImage: 'url(/avatars/2025雙十.jpg)',
+          transform: `translateY(${parallaxOffset}px) scale(1.1)`,
+        }}
       />
       
       {/* 背景漸層遮罩 */}
