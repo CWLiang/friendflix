@@ -38,23 +38,23 @@ export default function Home() {
 
       {/* 好友列表 */}
       <div className="pb-10">
-        {/* Row 1: 超級好友們 (匹配度 ≥ 85%) */}
+        {/* Row 1: 4466大順如意肥蜜莉 */}
         <FriendRow
-          title="超級好友們"
+          title="4466大順如意肥蜜莉"
           friends={superFriends}
           onFriendClick={handleFriendClick}
         />
 
-        {/* Row 2: 今日精選 (75% - 85%) */}
+        {/* Row 2: 可愛的學弟妹們 */}
         <FriendRow
-          title="今日精選"
+          title="可愛的學弟妹們"
           friends={todaysPicks}
           onFriendClick={handleFriendClick}
         />
 
-        {/* Row 3: 驚喜來賓 (其他) */}
+        {/* Row 3: 特別來賓 */}
         <FriendRow
-          title="驚喜來賓"
+          title="特別來賓"
           friends={surpriseGuests}
           onFriendClick={handleFriendClick}
         />

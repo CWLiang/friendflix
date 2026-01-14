@@ -218,15 +218,16 @@ export const getMatchValue = (percentage: string): number => {
 };
 
 export const groupFriendsByMatch = () => {
-  const superFriends = friends.filter(f => getMatchValue(f.matchPercentage) >= 85);
-  const todaysPicks = friends.filter(f => {
-    const match = getMatchValue(f.matchPercentage);
-    return match >= 75 && match < 85;
-  });
-  const surpriseGuests = friends.filter(f => {
-    const match = getMatchValue(f.matchPercentage);
-    return match < 75 || f.matchPercentage.includes('FF');
-  });
+  // 4466大順如意肥蜜莉
+  const group1Names = ['莊子賢', '潘堉炘', '黃仲宣', '林怡均', '郭承翰', '黃玟瑜', '謝其叡', '陳如意', '張仰浩', '林侃璇', '吳佳蒨'];
+  // 可愛的學弟妹們
+  const group2Names = ['李奕慶', '陳若晴', '王泓詠', '謝佳蓁'];
+  // 特別來賓
+  const group3Names = ['王勝斌', '官大涵'];
+
+  const superFriends = friends.filter(f => group1Names.includes(f.name));
+  const todaysPicks = friends.filter(f => group2Names.includes(f.name));
+  const surpriseGuests = friends.filter(f => group3Names.includes(f.name));
 
   return {
     superFriends,
